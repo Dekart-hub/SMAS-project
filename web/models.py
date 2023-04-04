@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField()
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
 
 class StockMarket(models.Model):
