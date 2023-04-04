@@ -3,39 +3,39 @@ from django.contrib.auth.models import User
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True, verbose_name='Аватарка')
 
 
 class StockMarket(models.Model):
-    title = models.CharField(max_length=50)
-    tag = models.CharField(max_length=8)
-    description = models.CharField(max_length=500, default='-')
+    title = models.CharField(max_length=50, verbose_name='Название')
+    tag = models.CharField(max_length=8, verbose_name='Тэг')
+    description = models.CharField(max_length=500, default='-', verbose_name='Описание')
 
 
 class StockType(models.Model):
-    title = models.CharField(max_length=15)
-    description = models.CharField(max_length=500, default='-')
+    title = models.CharField(max_length=15, verbose_name='Название')
+    description = models.CharField(max_length=500, default='-', verbose_name='Описание')
 
 
 class StockInformation(models.Model):
-    title = models.CharField(max_length=20)
-    tag = models.CharField(max_length=8)
-    description = models.CharField(max_length=500, default='-')
-    market = models.ForeignKey(StockMarket, on_delete=models.CASCADE)
-    type = models.ForeignKey(StockType, on_delete=models.CASCADE)
+    title = models.CharField(max_length=20, verbose_name='Название')
+    tag = models.CharField(max_length=8, verbose_name='Тэг')
+    description = models.CharField(max_length=500, default='-', verbose_name='Описание')
+    market = models.ForeignKey(StockMarket, on_delete=models.CASCADE, verbose_name='Биржа')
+    type = models.ForeignKey(StockType, on_delete=models.CASCADE, verbose_name='Тип бумаги')
 
 
 class Stock(models.Model):
-    ts = models.DateTimeField()
-    open = models.DecimalField(max_digits=14, decimal_places=4)
-    high = models.DecimalField(max_digits=14, decimal_places=4)
-    low = models.DecimalField(max_digits=14, decimal_places=4)
-    close = models.DecimalField(max_digits=14, decimal_places=4)
-    volume = models.IntegerField()
-    stock = models.ForeignKey(StockInformation, on_delete=models.CASCADE)
+    date = models.DateTimeField(verbose_name='Дата')
+    open = models.DecimalField(max_digits=14, decimal_places=4, verbose_name='Цена открытия')
+    high = models.DecimalField(max_digits=14, decimal_places=4, verbose_name='Максимальная цена')
+    low = models.DecimalField(max_digits=14, decimal_places=4, verbose_name='Минимальная цена')
+    close = models.DecimalField(max_digits=14, decimal_places=4, verbose_name='Цена закрытия')
+    volume = models.IntegerField(verbose_name='Объём продаж')
+    stock = models.ForeignKey(StockInformation, on_delete=models.CASCADE, verbose_name='Ценная бумага')
 
 
 class CustomTemplate(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    template = models.JSONField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    template = models.JSONField(verbose_name='Шаблон в формате JSON')
