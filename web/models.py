@@ -21,7 +21,8 @@ class UserProfile(models.Model):
 class StockMarket(models.Model):
     title = models.CharField(max_length=TITLE_LENGTH, verbose_name='Название')
     tag = models.CharField(max_length=TAG_LENGTH, verbose_name='Тэг')
-    description = models.CharField(max_length=TEXT_LENGTH, default=None, verbose_name='Описание')
+    description = models.CharField(max_length=TEXT_LENGTH, default=None,
+                                   null=True, blank=True, verbose_name='Описание')
 
     class Meta:
         verbose_name = 'Биржа'
@@ -30,7 +31,8 @@ class StockMarket(models.Model):
 
 class StockType(models.Model):
     title = models.CharField(max_length=TITLE_LENGTH, verbose_name='Название')
-    description = models.CharField(max_length=TEXT_LENGTH, default=None, verbose_name='Описание')
+    description = models.CharField(max_length=TEXT_LENGTH, default=None,
+                                   null=True, blank=True, verbose_name='Описание')
 
     class Meta:
         verbose_name = 'Тип ценной бумаги'
@@ -40,7 +42,8 @@ class StockType(models.Model):
 class StockInformation(models.Model):
     title = models.CharField(max_length=TITLE_LENGTH, verbose_name='Название')
     tag = models.CharField(max_length=TAG_LENGTH, verbose_name='Тэг')
-    description = models.CharField(max_length=TEXT_LENGTH, default=None, verbose_name='Описание')
+    description = models.CharField(max_length=TEXT_LENGTH, default=None,
+                                   null=True, blank=True, verbose_name='Описание')
     market = models.ForeignKey(StockMarket, on_delete=models.CASCADE, verbose_name='Биржа')
     type = models.ForeignKey(StockType, on_delete=models.CASCADE, verbose_name='Тип бумаги')
 
