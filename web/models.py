@@ -49,29 +49,6 @@ class StockInformation(models.Model):
         verbose_name_plural = 'Сводки по бумагам'
 
 
-class Stock(models.Model):
-    date = models.DateTimeField(verbose_name='Дата')
-    open = models.DecimalField(max_digits=PRICE_LENGTH,
-                               decimal_places=DECIMAL_PRICE_LENGTH,
-                               verbose_name='Цена открытия')
-    high = models.DecimalField(max_digits=PRICE_LENGTH,
-                               decimal_places=DECIMAL_PRICE_LENGTH,
-                               verbose_name='Максимальная цена')
-    low = models.DecimalField(max_digits=PRICE_LENGTH,
-                              decimal_places=DECIMAL_PRICE_LENGTH,
-                              verbose_name='Минимальная цена')
-    close = models.DecimalField(max_digits=PRICE_LENGTH,
-                                decimal_places=DECIMAL_PRICE_LENGTH,
-                                verbose_name='Цена закрытия', default=None, null=True)
-    volume = models.IntegerField(verbose_name='Объём продаж')
-    stock = models.ForeignKey(StockInformation, on_delete=models.CASCADE,
-                              verbose_name='Ценная бумага')
-
-    class Meta:
-        verbose_name = 'Ценная бумага'
-        verbose_name_plural = 'Ценные бумаги'
-
-
 class CustomTemplate(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     template = models.JSONField(verbose_name='Шаблон в формате JSON')
