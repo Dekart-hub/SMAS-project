@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 import numpy as np
 import pandas as pd
 import torch
+import matplotlib
+matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from sklearn import linear_model
 from torch import nn
@@ -33,18 +35,17 @@ def linear_regression_train(x_train, y_train, name):
         pickle.dump(lr, file)
 
 
-def linear_regression_show(x_test, y_test, name):
-    plt.plot(x_test, y_test, 'r')
-    plt.plot(x_test, linear_regression_predict(x_test, name), 'b')
-    plt.show()
+def linear_regression_show(dates, x_test, y_test, name):
+    plt.plot(dates, y_test, 'r')
+    plt.plot(dates, linear_regression_predict(x_test, name), 'b')
 
 
-data_count = 100
-company = 'IBM'
-stock = yf.Ticker(company)
-dataframe = stock.history(period=f"{data_count}d")
-dates = dataframe.axes[0].date
-y = dataframe['Open'].values
-x = np.array(list(map(take_date, dates)))
-linear_regression_train(x, y, company)
-linear_regression_show(x, y, company)
+def take_data(company):
+    data_count = 100
+    stock = yf.Ticker(company)
+    dataframe = stock.history(period=f"{data_count}d")
+    dates = dataframe.axes[0].date
+    y = dataframe['Open'].values
+    x = np.array(list(map(take_date, dates)))
+    linear_regression_train(x, y, company)
+    linear_regression_show(dates, x, y, company)
