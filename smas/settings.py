@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 from decouple import config
@@ -41,6 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web'
 ]
+
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'web/static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,  'staticfiles')
+]
+# STATICFILES_DIRS = ((os.path.join(BASE_DIR, 'static')), )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
