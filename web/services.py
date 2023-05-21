@@ -6,6 +6,9 @@ import numpy as np
 import pandas as pd
 import torch
 import matplotlib
+
+from smas.settings import MEDIA_ROOT
+
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from sklearn import linear_model
@@ -30,7 +33,7 @@ def linear_regression_predict(x_test, name):
 def linear_regression_train(x_train, y_train, name):
     lr = linear_model.LinearRegression()
     lr.fit(x_train.reshape(-1, 1), y_train.reshape(-1, 1))
-    pkl_filename = f"lr_model_{name}.pkl"
+    pkl_filename = MEDIA_ROOT + "/models/" + f"lr_model_{name}.pkl"
     with open(pkl_filename, 'wb') as file:
         pickle.dump(lr, file)
 

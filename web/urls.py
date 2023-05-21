@@ -4,5 +4,5 @@ from web.views import main_view, plot_pic
 
 urlpatterns = [
     path('', main_view, name='main'),
-    path('pic/', plot_pic, name='plot_pic'),
+    path('pic/<str:tag>', plot_pic, name='plot_pic'),
 ]
