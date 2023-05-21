@@ -43,6 +43,12 @@ def linear_regression_show(dates, x_test, y_test, name):
     plt.plot(dates, linear_regression_predict(x_test, name), 'b')
 
 
+def show_data(datasets):
+    for dataset in datasets:
+        plt.plot(dataset[0], dataset[1])
+
+
+
 def take_data(company):
     data_count = 100
     stock = yf.Ticker(company)
