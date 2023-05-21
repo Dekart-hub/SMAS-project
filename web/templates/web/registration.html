@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="flex-container main-posts text-center">
+        {% if is_success == True %}
+            <p><b><i>Спасибо за регистрацию!</i></b></p>
+        {% else %}
+            <div class="form-background">
+                <h1 class="color-main" style="margin-bottom:2rem;">Регистрация</h1>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{field.label_tag}}
+                            <div>{{field}}</div>
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger">
+                                        {{error}}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <input class="btn  button-reg" type="submit" value="Зарегистрироваться" >
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

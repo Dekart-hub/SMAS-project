@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 TEXT_LENGTH = 500
@@ -7,6 +7,8 @@ TITLE_LENGTH = 25
 TAG_LENGTH = 8
 PRICE_LENGTH = 14
 DECIMAL_PRICE_LENGTH = 4
+
+User = get_user_model()
 
 
 class UserProfile(models.Model):
