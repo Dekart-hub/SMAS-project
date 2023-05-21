@@ -39,7 +39,7 @@
     </nav>
     <div class="graph-cont">
         <div class="graph-header">
-            Stock name
+            {{ random_stock.title }}
         </div>
         <div class="graph-body-cont">
             <img src="{% url 'plot_pic' random_stock.tag %}" width="640" height="auto">
