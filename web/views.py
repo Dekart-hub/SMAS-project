@@ -1,10 +1,11 @@
 import random
 
+from django.contrib.auth import login, authenticate
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from matplotlib import pyplot as plt
 
-from web.forms import RegistrationForm
+from web.forms import RegistrationForm, AuthorizationForm
 from web.models import StockInformation, User, UserProfile
 from web.services import take_data
 
@@ -44,3 +45,17 @@ def registration_view(request):
         'form': form,
         'is_success': is_success
     })
+
+
+def authorization_view(request):
+    form = AuthorizationForm()
+    if request.method == 'POST':
+        form = AuthorizationForm(data=request.POST)
+        if form.is_valid():
+            user = authenticate(**form.cleaned_data)
+            if user is None:
+                form.add_error(None, 'Введены неверные данные')
+            else:
+                login(request, user)
+                return redirect('main')
+    return render(request, 'web/authorization.html', {'form': form})
