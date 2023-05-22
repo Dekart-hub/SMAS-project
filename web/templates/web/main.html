@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'styles/main.css' %}">
 </head>
 <body>
-<nav class="navbar navbar-expand-custom navbar-mainbg">
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
         <a class="navbar-brand navbar-logo" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars text-white"></i>
@@ -39,10 +39,10 @@
     </nav>
     <div class="graph-cont">
         <div class="graph-header">
-            {{ random_stock.title }}
+            {{ stock.title }}
         </div>
         <div class="graph-body-cont">
-            <img src="{% url 'plot_pic' random_stock.tag %}" width="640" height="auto">
+            <img src="{% url 'plot_pic' stock.tag %}" width="640" height="auto">
         </div>
     </div>
     <div class="stock_selection_part">

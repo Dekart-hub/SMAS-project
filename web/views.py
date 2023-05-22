@@ -12,7 +12,7 @@ from web.services import take_data
 
 def main_view(request):
     random_stock = random.choice(StockInformation.objects.prefetch_related('market', 'type').all())
-    return render(request, 'web/main.html', {'random_stock': random_stock})
+    return render(request, 'web/main.html', {'stock': random_stock})
 
 
 def plot_pic(request, tag):
@@ -59,3 +59,8 @@ def authorization_view(request):
                 login(request, user)
                 return redirect('main')
     return render(request, 'web/authorization.html', {'form': form})
+
+
+def stock_view(request, id):
+    stock = StockInformation.objects.filter(id=id).first()
+    return render(request, 'web/main.html', {'stock': stock})
