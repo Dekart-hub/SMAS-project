@@ -11,7 +11,7 @@ from web.services import take_data
 
 
 def main_view(request):
-    random_stock = random.choice(StockInformation.objects.prefetch_related('market', 'type').all())
+    random_stock = random.choice(StockInformation.objects.all())
     return render(request, 'web/main.html', {'stock': random_stock})
 
 
@@ -64,3 +64,8 @@ def authorization_view(request):
 def stock_view(request, id):
     stock = StockInformation.objects.filter(id=id).first()
     return render(request, 'web/main.html', {'stock': stock})
+
+
+def stocks_view(request):
+    stocks = StockInformation.objects.prefetch_related('market', 'type').all()
+    return render(request, 'web/stocks.html', {'stocks': stocks})
