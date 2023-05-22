@@ -48,7 +48,6 @@ def show_data(datasets):
         plt.plot(dataset[0], dataset[1])
 
 
-
 def take_data(company):
     data_count = 100
     stock = yf.Ticker(company)
