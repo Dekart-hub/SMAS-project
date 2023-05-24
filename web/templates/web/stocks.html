@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+     {% if stocks|length != 0 %}
+        <h1>Ценные бумаги:</h1>
+        <ul>
+            {% for stock in stocks %}
+                <li>&nbsp
+                    <table>
+                        <tr>
+                            <td>
+                                <p>
+                                    <a href="{% url 'stock' stock.id %}"><b>{{ stock.title }}</b></a>
+                                </p>
+                                <p><i>Тег: {{ stock.tag }}</i></p>
+                                <p><i>Рынок: {{ stock.market.title }}</i></p>
+                                <p><i>Тип ЦБ: {{ stock.type.title }}</i></p>
+                                <p><small>Описание: {{ stock.description }}</small></p>
+                            </td>
+                            <td>
+                                {% if book_note.image != '' and book_note.image is not None %}
+                                    <img src="{{ MEDIA_ROOT }}/{{ book_note.image }}">
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
