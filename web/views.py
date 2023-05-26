@@ -17,7 +17,7 @@ def main_view(request):
 
 
 def plot_pic(request, tag):
-    take_data(tag)
+    take_data(tag, 'lr')
     response = HttpResponse(content_type="image/jpeg")
     plt.savefig(response, format="png")
     plt.clf()
