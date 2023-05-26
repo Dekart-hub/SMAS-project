@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from matplotlib import pyplot as plt
 
-from web.forms import RegistrationForm, AuthorizationForm, StockFilterForm
+from web.forms import RegistrationForm, AuthorizationForm, StockFilterForm, GraphForm
 from web.models import StockInformation, User, UserProfile
 from web.services import take_data, filter_stocks
 
@@ -65,7 +65,11 @@ def authorization_view(request):
 @login_required
 def stock_view(request, id):
     stock = StockInformation.objects.filter(id=id).first()
-    return render(request, 'web/main.html', {'stock': stock})
+    form = GraphForm()
+    return render(request, 'web/main.html', {
+        'stock': stock,
+        'form': form
+    })
 
 
 @login_required

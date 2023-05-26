@@ -5,6 +5,9 @@ from django import forms
 from web.models import User, StockMarket, StockType
 
 
+MODELS = (('lr', 'Линейная регрессия'),)
+
+
 class RegistrationForm(forms.Form):
     email = forms.EmailField(label="Электропочта:")
     username = forms.CharField(label="Имя пользователя:")
@@ -59,7 +62,6 @@ class StockFilterForm(forms.Form):
         required=False,
         label='Биржа:'
     )
-
     type = forms.ChoiceField(
         choices=(
             ('', 'Все'),
@@ -68,15 +70,28 @@ class StockFilterForm(forms.Form):
         required=False,
         label='Тип ЦБ:'
     )
-
     search_title = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Поиск по названию'}),
         required=False,
         label='Название:'
     )
-
     search_tag = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Поиск по тегу'}),
         required=False,
         label='Тег:'
+    )
+
+
+class GraphForm(forms.Form):
+    start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'datetime-local'}),
+                                 label='Начало периода:', required=False)
+    end_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'datetime-local'}),
+                               label='Окончание периода:', required=False)
+    model = forms.ChoiceField(
+        choices=(
+            ('', 'нет'),
+            *MODELS
+        ),
+        required=False,
+        label='Инструмент прогнозирования:'
     )

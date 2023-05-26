@@ -2,6 +2,14 @@
 
 {% block content %}
     <div class="graph-cont">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag }}
+                <div>{{ field }}</div>
+            {% endfor %}
+            <input type="submit" value="Построить прогноз">
+        </form>
         <div class="graph-header">
             {{ stock.title }}
         </div>

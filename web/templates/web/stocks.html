@@ -4,8 +4,8 @@
     <form action="" method="post">
         {% csrf_token %}
         {% for field in filter_form %}
-            {{field.label_tag}}
-            <div>{{field}}</div>
+            {{ field.label_tag }}
+            <div>{{ field }}</div>
         {% endfor %}
         <input type="submit" value="Найти">
     </form>
