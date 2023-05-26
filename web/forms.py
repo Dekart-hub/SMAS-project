@@ -51,7 +51,7 @@ class StockFilterForm(forms.Form):
     for type in all_types:
         type_list.append((type.id, type.title))
 
-    markets = forms.ChoiceField(
+    market = forms.ChoiceField(
         choices=(
             ('', 'Все'),
             *market_list
@@ -60,7 +60,7 @@ class StockFilterForm(forms.Form):
         label='Биржа:'
     )
 
-    types = forms.ChoiceField(
+    type = forms.ChoiceField(
         choices=(
             ('', 'Все'),
             *type_list

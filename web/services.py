@@ -18,6 +18,21 @@ from torch.utils.data import Dataset, DataLoader
 import yfinance as yf
 
 
+def filter_stocks(stocks, filter:dict):
+    if filter['market']:
+        stocks = stocks.filter(market_id=filter['market'])
+
+    if filter['type']:
+        stocks = stocks.filter(type_id=filter['type'])
+
+    if filter['search_title']:
+        stocks = stocks.filter(title__icontains=filter['search_title'])
+
+    if filter['search_tag']:
+        stocks = stocks.filter(tag__icontains=filter['search_tag'])
+    return stocks
+
+
 def take_date(date):
     date = date.timetuple()
     return time.mktime(date)
