@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-     {% if stocks|length != 0 %}
+{% extends 'web/base.html' %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in filter_form %}
+            {{field.label_tag}}
+            <div>{{field}}</div>
+        {% endfor %}
+        <input type="button" value="Найти">
+    </form>
+
+    {% if stocks|length != 0 %}
         <h1>Ценные бумаги:</h1>
         <ul>
             {% for stock in stocks %}
@@ -21,16 +26,10 @@
                                 <p><i>Тип ЦБ: {{ stock.type.title }}</i></p>
                                 <p><small>Описание: {{ stock.description }}</small></p>
                             </td>
-                            <td>
-                                {% if book_note.image != '' and book_note.image is not None %}
-                                    <img src="{{ MEDIA_ROOT }}/{{ book_note.image }}">
-                                {% endif %}
-                            </td>
                         </tr>
                     </table>
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
-</body>
-</html>
+{% endblock content %}

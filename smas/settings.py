@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'smas',
         'USER': 'postgres',
-        'PASSWORD': '123',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': 5432
     }
@@ -136,5 +136,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = 'web/media/'
+MEDIA_ROOT = 'media/'
 MEDIA_URL = 'media/'

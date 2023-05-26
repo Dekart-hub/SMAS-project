@@ -1,11 +1,12 @@
 import random
 
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from matplotlib import pyplot as plt
 
-from web.forms import RegistrationForm, AuthorizationForm
+from web.forms import RegistrationForm, AuthorizationForm, StockFilterForm
 from web.models import StockInformation, User, UserProfile
 from web.services import take_data
 
@@ -61,11 +62,18 @@ def authorization_view(request):
     return render(request, 'web/authorization.html', {'form': form})
 
 
+@login_required
 def stock_view(request, id):
     stock = StockInformation.objects.filter(id=id).first()
     return render(request, 'web/main.html', {'stock': stock})
 
 
+@login_required
 def stocks_view(request):
     stocks = StockInformation.objects.prefetch_related('market', 'type').all()
-    return render(request, 'web/stocks.html', {'stocks': stocks})
+    filter_form = StockFilterForm(request.GET)
+    filter_form.is_valid()
+    return render(request, 'web/stocks.html', {
+        'stocks': stocks,
+        'filter_form': filter_form
+    })

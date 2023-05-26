@@ -2,7 +2,7 @@ import re
 
 from django import forms
 
-from web.models import User
+from web.models import User, StockMarket, StockType
 
 
 class RegistrationForm(forms.Form):
@@ -39,3 +39,44 @@ class AuthorizationForm(forms.Form):
     username = forms.CharField(label="Имя пользователя:")
     password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-field"}), label="Пароль:")
     username.widget.attrs.update({"class": "form-field"})
+
+
+class StockFilterForm(forms.Form):
+    all_markets = StockMarket.objects.all()
+    all_types = StockType.objects.all()
+    market_list, type_list = [], []
+
+    for market in all_markets:
+        market_list.append((market.id, market.title))
+    for type in all_types:
+        type_list.append((type.id, type.title))
+
+    markets = forms.ChoiceField(
+        choices=(
+            ('', 'Все'),
+            *market_list
+        ),
+        required=False,
+        label='Биржа:'
+    )
+
+    types = forms.ChoiceField(
+        choices=(
+            ('', 'Все'),
+            *type_list
+        ),
+        required=False,
+        label='Тип ЦБ:'
+    )
+
+    search_title = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'Поиск по названию'}),
+        required=False,
+        label='Название:'
+    )
+
+    search_tag = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'Поиск по тегу'}),
+        required=False,
+        label='Тег:'
+    )
