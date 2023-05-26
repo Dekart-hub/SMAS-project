@@ -83,10 +83,12 @@ class StockFilterForm(forms.Form):
 
 
 class GraphForm(forms.Form):
-    start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'datetime-local'}),
-                                 label='Начало периода:', required=False)
-    end_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'datetime-local'}),
-                               label='Окончание периода:', required=False)
+    start_date = forms.DateTimeField(widget=forms.DateInput(attrs={'type': 'datetime-local'},
+                                                            format='%Y-%m-%d'),
+                                     label='Начало периода:', required=False)
+    end_date = forms.DateTimeField(widget=forms.DateInput(attrs={'type': 'datetime-local'},
+                                                          format='%Y-%m-%'),
+                                   label='Окончание периода:', required=False)
     model = forms.ChoiceField(
         choices=(
             ('', 'нет'),

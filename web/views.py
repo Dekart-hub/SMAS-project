@@ -16,8 +16,7 @@ def main_view(request):
     return render(request, 'web/main.html', {'stock': random_stock})
 
 
-def plot_pic(request, tag):
-    take_data(tag, 'lr')
+def plot_pic(request):
     response = HttpResponse(content_type="image/jpeg")
     plt.savefig(response, format="png")
     plt.clf()
@@ -65,7 +64,13 @@ def authorization_view(request):
 @login_required
 def stock_view(request, id):
     stock = StockInformation.objects.filter(id=id).first()
+    filters = {'model': None, 'start_date': None, 'end_date': None}
     form = GraphForm()
+    if request.method == 'POST':
+        form = GraphForm(data=request.POST)
+        if form.is_valid():
+            filters = form.cleaned_data
+    take_data(stock.tag, filters)
     return render(request, 'web/main.html', {
         'stock': stock,
         'form': form

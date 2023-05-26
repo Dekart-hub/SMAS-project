@@ -33,6 +33,25 @@ def filter_stocks(stocks, filter:dict):
     return stocks
 
 
+def filter_data(dates, y, filter:dict):
+    new_dates = [[], []]
+    for date_index in range(len(dates)):
+        if (filter['start_date'] and filter['end_date']
+                and filter['start_date'].date() <= dates[date_index] <= filter['end_date'].date()):
+            new_dates[0].append(dates[date_index])
+            new_dates[1].append(y[date_index])
+        elif filter['start_date'] and filter['start_date'].date() <= dates[date_index] and not filter['end_date']:
+            new_dates[0].append(dates[date_index])
+            new_dates[1].append(y[date_index])
+        elif filter['end_date'] and dates[date_index] <= filter['end_date'].date() and not filter['start_date']:
+            new_dates[0].append(dates[date_index])
+            new_dates[1].append(y[date_index])
+        elif not filter['start_date'] and not filter['end_date']:
+            new_dates[0].append(dates[date_index])
+            new_dates[1].append(y[date_index])
+    return new_dates[0], new_dates[1]
+
+
 def take_date(date):
     date = date.timetuple()
     return time.mktime(date)
@@ -53,10 +72,13 @@ def lr_train(x_train, y_train, name, model_tag):
         pickle.dump(lr, file)
 
 
-def show(dates, x_test, y_test, name, predict_method, model_tag):
+models = {'lr': (lr_train, lr_predict)}
+
+
+def show(dates, x_test, y_test, name, model_tag):
     plt.plot(dates, y_test, 'b')
     if model_tag:
-        plt.plot(dates, predict_method(x_test, name, model_tag), 'r')
+        plt.plot(dates, models[model_tag][1](x_test, name, model_tag), 'r')
 
 
 def show_data(datasets):
@@ -64,16 +86,16 @@ def show_data(datasets):
         plt.plot(dataset[0], dataset[1])
 
 
-models = {'lr': (lr_train, lr_predict)}
-
-
-def take_data(company, model_tag):
+def take_data(company, filter):
     data_count = 100
+    model_tag = filter['model']
     stock = yf.Ticker(company)
     dataframe = stock.history(period=f"{data_count}d")
     dates = dataframe.axes[0].date
     y = dataframe['Open'].values
+    dates, y = filter_data(dates, y, filter)
+    dates, y = np.array(dates), np.array(y)
     x = np.array(list(map(take_date, dates)))
     if model_tag:
         models[model_tag][0](x, y, company, model_tag)
-    show(dates, x, y, company, models[model_tag][1], model_tag)
+    show(dates, x, y, company, model_tag)
