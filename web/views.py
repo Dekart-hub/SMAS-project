@@ -1,6 +1,6 @@
 import random
 
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -13,7 +13,12 @@ from web.services import take_data, filter_stocks
 
 def main_view(request):
     random_stock = random.choice(StockInformation.objects.all())
-    return render(request, 'web/main.html', {'stock': random_stock})
+    filters = {'model': None, 'start_date': None, 'end_date': None}
+    take_data(random_stock.tag, filters)
+    return render(request, 'web/main.html', {
+        'stock': random_stock,
+        'stock_view': False
+    })
 
 
 def plot_pic(request):
@@ -73,7 +78,8 @@ def stock_view(request, id):
     take_data(stock.tag, filters)
     return render(request, 'web/main.html', {
         'stock': stock,
-        'form': form
+        'form': form,
+        'stock_view': True
     })
 
 
@@ -89,3 +95,8 @@ def stocks_view(request):
         'stocks': stocks,
         'filter_form': filter_form
     })
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('main')

@@ -16,24 +16,43 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-address-book"></i>Address Book</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-clone"></i>Components</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-calendar-alt"></i>Calendar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-chart-bar"></i>Charts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-copy"></i>Documents</a>
-                </li>
+                {% if user.is_anonymous %}
+                    <li class="nav-item" style="text-align: right">
+                        <a class="nav-link" href="{% url 'authorization' %}">Войти</a>
+                    </li>
+                    <li class="nav-item" style="text-align: right">
+                        <a class="nav-link" href="{% url 'registration' %}">Регистрация</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'stocks' %}">Список акций</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main' %}">Случайная акция</a>
+                    </li>
+                    <li class="nav-item" style="text-align: right">
+                        Вы авторизованы как <b><i>{{ user.username }}</i></b>
+                        <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                    </li>
+                {% endif %}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Dashboard</a>#}
+{#                </li>#}
+{#                <li class="nav-item active">#}
+{#                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-address-book"></i>Address Book</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-clone"></i>Components</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-calendar-alt"></i>Calendar</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-chart-bar"></i>Charts</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-copy"></i>Documents</a>#}
+{#                </li>#}
             </ul>
         </div>
     </nav>
@@ -41,20 +60,20 @@
     {% block content %}
     {% endblock content %}
 
-    <div class="stock_selection_part">
+{#    <div class="stock_selection_part">#}
 {#        <div class="market_selection_cont">#}
 {#            <ul class="market_selection">#}
 {#                <li class="market_selection_item">Market 1</li>#}
 {#                <li class="market_selection_item">Market 2</li>#}
 {#            </ul>#}
 {#        </div>#}
-        <div class="stock_selection_cont">
-            <ul class="stock_selection">
-                <li class="stock_selection_item">Stock 1</li>
-                <li class="stock_selection_item">Stock 2</li>
-            </ul>
-        </div>
-    </div>
+{#        <div class="stock_selection_cont">#}
+{#            <ul class="stock_selection">#}
+{#                <li class="stock_selection_item">Stock 1</li>#}
+{#                <li class="stock_selection_item">Stock 2</li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
 
     <div class="footer">
         <span class="footer_logo">SMAS</span>
