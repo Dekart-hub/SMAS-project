@@ -1,7 +1,7 @@
 {% extends 'web/base.html' %}
 
 {% block content %}
-    <div class="graph-cont">
+    <div class="graph-cont" style="display: inline">
         {% if stock_view %}
             <form action="" method="post">
                 {% csrf_token %}
