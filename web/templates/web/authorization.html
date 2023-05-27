@@ -1,19 +1,24 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+     <link rel="stylesheet" href="{% static 'styles/auth.css' %}">
 </head>
 <body>
-    <div class="flex-container main-posts text-center">
-        <div class="form-background">
-            <h1 class="color-main" style="margin:2rem 0 2rem 0;padding-top:2rem; ">Войти</h1>
+    <div class="auth_page_cont">
+        <div class="form_cont">
+            <h1 class="form_header" style="margin:2rem 0 2rem 0;padding-top:2rem; ">Войти</h1>
             <form action="" method="post">
+            <div class="fields_wrapper">
                 {% csrf_token %}
                     {% for field in form %}
-                        <div class="form-group">
-                            {{field.label_tag}}
-                            <div>{{field}}</div>
+                        <div class="form_field">
+                            <div class="field_label">
+                                {{field.label_tag}}
+                            </div>
+                            <div class = "input_field">{{field}}</div>
                             {% if field.errors %}
                                 {% for error in field.errors %}
                                     <div class="alert alert-danger">
@@ -23,7 +28,8 @@
                             {% endif %}
                         </div>
                     {% endfor %}
-                <input class="button-enter btn" type="submit" value="Войти">
+            </div>
+                <input class="submit_button" type="submit" value="Войти">
             </form>
         </div>
     </div>

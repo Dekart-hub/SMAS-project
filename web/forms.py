@@ -9,10 +9,10 @@ MODELS = (('lr', 'Линейная регрессия'),)
 
 
 class RegistrationForm(forms.Form):
-    email = forms.EmailField(label="Электропочта:")
-    username = forms.CharField(label="Имя пользователя:")
-    password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-field"}), label="Пароль:")
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-field"}), label="Повторите пароль:")
+    email = forms.EmailField(widget=forms.TextInput(attrs={"class": "form-field"}), label="Электропочта")
+    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-field"}), label="Имя пользователя")
+    password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-field"}), label="Пароль")
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-field"}), label="Повторите пароль")
     avatar = forms.ImageField(required=False, label="Аватар:")
     # avatar.widget.attrs.update({"class": "center"})
     # email.widget.attrs.update({"class": "form-field"})
@@ -39,8 +39,8 @@ class RegistrationForm(forms.Form):
 
 
 class AuthorizationForm(forms.Form):
-    username = forms.CharField(label="Имя пользователя:")
-    password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-field"}), label="Пароль:")
+    username = forms.CharField(label="Имя пользователя")
+    password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-field"}), label="Пароль")
     username.widget.attrs.update({"class": "form-field"})
 
 
