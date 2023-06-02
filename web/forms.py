@@ -4,7 +4,6 @@ from django import forms
 
 from web.models import User, StockMarket, StockType
 
-
 MODELS = (('lr', 'Линейная регрессия'),)
 
 
@@ -14,6 +13,7 @@ class RegistrationForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-field"}), label="Пароль")
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-field"}), label="Повторите пароль")
     avatar = forms.ImageField(required=False, label="Аватар:")
+
     # avatar.widget.attrs.update({"class": "center"})
     # email.widget.attrs.update({"class": "form-field"})
     # username.widget.attrs.update({"class": "form-field"})
@@ -44,6 +44,18 @@ class AuthorizationForm(forms.Form):
     username.widget.attrs.update({"class": "form-field"})
 
 
+class GraphParamsForm(forms.Form):
+    start_date = forms.DateInput()
+    end_date = forms.DateInput()
+    model = forms.ChoiceField(
+        choices=(
+            ('', 'Регрессия'),
+
+        ),
+        required=False
+    )
+
+
 class StockFilterForm(forms.Form):
     all_markets = StockMarket.objects.all()
     all_types = StockType.objects.all()
@@ -56,7 +68,7 @@ class StockFilterForm(forms.Form):
 
     market = forms.ChoiceField(
         choices=(
-            ('', 'Все'),
+            ('', 'Все биржи'),
             *market_list
         ),
         required=False,
@@ -64,7 +76,7 @@ class StockFilterForm(forms.Form):
     )
     type = forms.ChoiceField(
         choices=(
-            ('', 'Все'),
+            ('', 'Все виды ЦБ'),
             *type_list
         ),
         required=False,

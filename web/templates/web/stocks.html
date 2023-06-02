@@ -3,18 +3,18 @@
 {% block content %}
     <form action="" method="post">
         {% csrf_token %}
-        {% for field in filter_form %}
-            {{ field.label_tag }}
-            <div>{{ field }}</div>
-        {% endfor %}
-        <input type="submit" value="Найти">
+        <div class="stock_filter_cont">
+            {% for field in filter_form %}
+                <div class="stock_filter_field">{{ field }}</div>
+            {% endfor %}
+            <input class="stock_filter_btn" type="submit" value="Подтвердить">
+        </div>
     </form>
 
     {% if stocks|length != 0 %}
-        <h1>Ценные бумаги:</h1>
         <ul>
             {% for stock in stocks %}
-                <li>&nbsp
+                <li class = stock_selection_item>&nbsp
                     <table>
                         <tr>
                             <td>

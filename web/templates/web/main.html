@@ -1,7 +1,7 @@
 {% extends 'web/base.html' %}
 
 {% block content %}
-    <div class="graph-cont" style="display: inline">
+    <div class="graph-cont">
         {% if stock_view %}
             <form action="" method="post">
                 {% csrf_token %}
@@ -16,7 +16,7 @@
             {{ stock.title }}
         </div>
         <div class="graph-body-cont">
-            <img src="{% url 'plot_pic' %}" width="640" height="auto">
+            <img class="graph_img" src="{% url 'plot_pic' %}" alt="График предсказания">
         </div>
     </div>
 {% endblock content %}
