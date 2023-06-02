@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 
 from web.forms import RegistrationForm, AuthorizationForm, StockFilterForm, GraphForm
 from web.models import StockInformation, User, UserProfile
-from web.services import take_data, filter_stocks
+from web.services import take_data, filter_stocks, get_stock_data
 
 
 def main_view(request):
@@ -91,9 +91,12 @@ def stocks_view(request):
         filter_form = StockFilterForm(data=request.POST)
         if filter_form.is_valid():
             stocks = filter_stocks(stocks, filter_form.cleaned_data)
+    stocks_data = get_stock_data(stocks)
+    print(stocks_data)
     return render(request, 'web/stocks.html', {
         'stocks': stocks,
-        'filter_form': filter_form
+        'filter_form': filter_form,
+        'stocks_data': stocks_data
     })
 
 

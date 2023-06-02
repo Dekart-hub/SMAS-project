@@ -25,6 +25,13 @@
                                 <p><i>Рынок: {{ stock.market.title }}</i></p>
                                 <p><i>Тип ЦБ: {{ stock.type.title }}</i></p>
                                 <p><small>Описание: {{ stock.description }}</small></p>
+                                {% for tag, value in stocks_data.items %}
+                                    {% if tag == stock.tag %}
+                                        <p><small>Текущая цена: {{ value.cur }}$</small></p>
+                                        <p><small>Изменение цены за неделю: {{ value.week }}%</small></p>
+                                        <p><small>Изменение цены за год: {{ value.year }}%</small></p>
+                                    {% endif %}
+                                {% endfor %}
                             </td>
                         </tr>
                     </table>

@@ -18,7 +18,22 @@ from torch.utils.data import Dataset, DataLoader
 import yfinance as yf
 
 
-def filter_stocks(stocks, filter:dict):
+def get_prices(stock_tag):
+    stock = yf.Ticker(stock_tag)
+    dataframe = stock.history(period="365d")
+    return {'cur': dataframe['Open'][-1],
+            'week': (dataframe['Open'][-1] - dataframe['Open'][-7]) / dataframe['Open'][-7] * 100,
+            'year': (dataframe['Open'][-1] - dataframe['Open'][-365]) / dataframe['Open'][-365] * 100}
+
+
+def get_stock_data(stocks):
+    stock_prices = {}
+    for stock in stocks:
+        stock_prices[stock.tag] = get_prices(stock.tag)
+    return stock_prices
+
+
+def filter_stocks(stocks, filter: dict):
     if filter['market']:
         stocks = stocks.filter(market_id=filter['market'])
 
@@ -33,7 +48,7 @@ def filter_stocks(stocks, filter:dict):
     return stocks
 
 
-def filter_data(dates, y, filter:dict):
+def filter_data(dates, y, filter: dict):
     new_dates = [[], []]
     for date_index in range(len(dates)):
         if (filter['start_date'] and filter['end_date']
