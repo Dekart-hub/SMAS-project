@@ -21,9 +21,12 @@ import yfinance as yf
 def get_prices(stock_tag):
     stock = yf.Ticker(stock_tag)
     dataframe = stock.history(period="365d")
-    return {'cur': dataframe['Open'][-1],
-            'week': (dataframe['Open'][-1] - dataframe['Open'][-7]) / dataframe['Open'][-7] * 100,
-            'year': (dataframe['Open'][-1] - dataframe['Open'][-365]) / dataframe['Open'][-365] * 100}
+    curr = dataframe['Open'][-1]
+    week = (dataframe['Open'][-1] - dataframe['Open'][-7]) / dataframe['Open'][-7] * 100
+    year = (dataframe['Open'][-1] - dataframe['Open'][-365]) / dataframe['Open'][-365] * 100
+    return {'cur': round(curr, 2),
+            'week': round(week, 2),
+            'year': round(year, 2)}
 
 
 def get_stock_data(stocks):

@@ -189,8 +189,58 @@ i {
 	border: none;
 }
 
+.stock_selection {
+	background-color: white;
+	margin-top: 50px;
+	padding-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
 .stock_selection_item {
-	display: inline;
+	height: 40px;
+	margin-top: 30px;
+	display: flex;
+	color: black;
+	border-bottom: solid;
+	border-bottom-width: 1px;
+	border-color: #9A9A9A;
+}
+
+.stock_selection_first_row {
+	font-size: 15px;
+	color: #ABAEB7;
+	margin-top: 10px;
+}
+
+.stock_selection_col {
+	width: 17%;
+}
+
+.stock_selection_first_col {
+	width: 50%;
+}
+
+.stock_selection_first_col a {
+	outline: none;
+  	text-decoration: none;
+	color: #1b1b1b;
+}
+
+.graph_filter_cont {
+	display: flex;
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	justify-content: space-between;
+}
+
+.graph_filter_btn {
+	margin-top: 22px;
+	background-color: #2D55B4;
+	color: white;
+	border: none;
 }
 
 #navbarSupportedContent{

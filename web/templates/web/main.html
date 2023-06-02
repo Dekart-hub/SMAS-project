@@ -3,14 +3,16 @@
 {% block content %}
     <div class="graph-cont">
         {% if stock_view %}
-            <form action="" method="post">
-                {% csrf_token %}
-                {% for field in form %}
-                    {{ field.label_tag }}
-                    <div>{{ field }}</div>
-                {% endfor %}
-                <input type="submit" value="Построить прогноз">
-            </form>
+            <div class="graph_filter_cont">
+                <form class="graph_filter_cont" action="" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+
+                        <div class ="stock_filter_field">{{ field.label_tag }}<br>{{ field }}</div>
+                    {% endfor %}
+                    <input class = "graph_filter_btn" type="submit" value="Построить прогноз">
+                </form>
+            </div>
         {% endif %}
         <div class="graph-header">
             {{ stock.title }}

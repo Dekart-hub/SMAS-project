@@ -12,29 +12,26 @@
     </form>
 
     {% if stocks|length != 0 %}
-        <ul>
+        <ul class="stock_selection">
+        <li class = "stock_selection_item stock_selection_first_row">
+            <span class="stock_selection_first_col stock_selection_first_row">Название</span>
+            <span class="stock_selection_col stock_selection_first_row">Цена</span>
+            <span class="stock_selection_col stock_selection_first_row">За день</span>
+            <span class="stock_selection_col stock_selection_first_row">За год</span>
+        </li>
             {% for stock in stocks %}
-                <li class = stock_selection_item>&nbsp
-                    <table>
-                        <tr>
-                            <td>
-                                <p>
-                                    <a href="{% url 'stock' stock.id %}"><b>{{ stock.title }}</b></a>
-                                </p>
-                                <p><i>Тег: {{ stock.tag }}</i></p>
-                                <p><i>Рынок: {{ stock.market.title }}</i></p>
-                                <p><i>Тип ЦБ: {{ stock.type.title }}</i></p>
-                                <p><small>Описание: {{ stock.description }}</small></p>
+                <li class = stock_selection_item>
+                                <div class="stock_selection_col stock_selection_first_col">
+                                    <a href="{% url 'stock' stock.id %}">{{ stock.title }}({{ stock.tag }})</a>
+                                </div>
+
                                 {% for tag, value in stocks_data.items %}
                                     {% if tag == stock.tag %}
-                                        <p><small>Текущая цена: {{ value.cur }}$</small></p>
-                                        <p><small>Изменение цены за неделю: {{ value.week }}%</small></p>
-                                        <p><small>Изменение цены за год: {{ value.year }}%</small></p>
+                                        <span class="stock_selection_col">{{ value.cur }}$</span>
+                                        <span class="stock_selection_col">{{ value.week }}%</span>
+                                        <span class="stock_selection_col">{{ value.year }}%</span>
                                     {% endif %}
                                 {% endfor %}
-                            </td>
-                        </tr>
-                    </table>
                 </li>
             {% endfor %}
         </ul>
